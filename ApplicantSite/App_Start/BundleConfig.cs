@@ -24,13 +24,20 @@ namespace ApplicantSite
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                "~/Scripts/angular.js",
+                "~/Scripts/angular-route.js"
+                ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/ApplicantSite")
+            bundles.Add(new ScriptBundle("~/bundles/ApplicantSite")     
                 .IncludeDirectory("~/Scripts/Controllers", "*.js")
-                .Include("~/Scripts/ApplicantSite.js"));
+                .IncludeDirectory("~/Scripts/Services", "*.js")
+                .IncludeDirectory("~/Scripts/Factories", "*.js"));
+                //.Include("~/Scripts/ApplicantSite.js")                
         }
     }
 }

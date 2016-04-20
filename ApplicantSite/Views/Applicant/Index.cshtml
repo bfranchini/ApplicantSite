@@ -1,4 +1,4 @@
-﻿@model List<ApplicantSite.Models.ApplicantModel>
+﻿@*@model List<ApplicantSite.Models.ApplicantModel>*@
 @{
     ViewBag.Title = "Applicant Information";
 }
@@ -7,66 +7,137 @@
 
 @{Html.RenderPartial("Messages"); }
 @Html.ActionLink("Create New", "Create")
-1
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model[0].FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model[0].LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model[0].ZipCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model[0].Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model[0].SalaryRequired)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model[0].Level_of_Expertise)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model[0].YearsOfExperience)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model[0].EducationLevel)
-        </th>
-    </tr>
-    <tbody>
-        @foreach (var item in Model)
-            {
+
+<div ng-app="ApplicantApp">
+    <div ng-controller="ApplicantController">
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ZipCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SalaryRequired)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Level_of_Expertise)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.YearsOfExperience)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EducationLevel)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                </td>
+                <th>
+                    <strong>First Name</strong>
+                </th>
+                <th>
+                    <strong>Last Name</strong>
+                </th>
+                <th>
+                    <strong>Zip Code</strong>
+                </th>
+                <th>
+                    <strong>Phone</strong>
+                </th>
+                <th>
+                    <strong>Salary Required</strong>
+                </th>
+                <th>
+                    <strong>Level of Expertise</strong>
+                </th>
+                <th>
+                    <strong>Years of Experience</strong>
+                </th>
+                <th>
+                    <strong>Education Level</strong>
             </tr>
-        }
-    </tbody>
-</table>
+            <tbody>
+                <tr ng-repeat="applicant in applicants">
+                    <td>
+                        {{applicant.firstName}}
+                    </td>
+                    <td>
+                        {{applicant.lastName}}
+                    </td>
+                    <td>
+                        {{applicant.zipCode}}
+                    </td>
+                    <td>
+                        {{applicant.phone}}
+                    </td>
+                    <td>
+                        {{applicant.salaryRequired}}
+                    </td>
+                    <td>
+                        {{applicant.level_of_Expertise}}
+                    </td>
+                    <td>
+                        {{applicant.yearsOfExperience}}
+                    </td>
+                    <td>
+                        {{applicant.educationLevel}}
+                    </td>
+                    <td>
+                        @{ var url = Url.Action("Edit", "Applicant", new { id = "{{id = applicant.id}}" });
+                            url = HttpUtility.UrlDecode(url);
+                        }
+
+                        <a data-ng-href="@url">Edit</a>
+                     </td>
+ 
+                 </tr>
+ 
+             </tbody>
+ 
+         </table>
+ 
+     </div>
+ </div>
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ZipCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].SalaryRequired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Level_of_Expertise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].YearsOfExperience)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].EducationLevel)
+            </th>
+        </tr>
+        <tbody>
+            @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ZipCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SalaryRequired)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Level_of_Expertise)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.YearsOfExperience)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EducationLevel)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

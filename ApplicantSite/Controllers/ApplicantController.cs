@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using ApplicantSite.Models;
 using System.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ApplicantSite.Controllers
 {
@@ -27,18 +29,34 @@ namespace ApplicantSite.Controllers
         // GET: Applicant
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult GetApp()
+        {
             var applicants = applicantsRepo.All();
-            return View(applicants.Select(s => new ApplicantModel {
+
+            applicants.Select(s => new ApplicantModel
+            {
                 Id = s.Id,
                 FirstName = s.FirstName,
                 LastName = s.LastName,
                 ZipCode = s.ZipCode,
-                Phone = s.Phone, 
-                SalaryRequired = s.SalaryRequired, 
-                Level_of_Expertise = s.Level_of_Expertise, 
-                YearsOfExperience = s.YearsOfExperience, 
+                Phone = s.Phone,
+                SalaryRequired = s.SalaryRequired,
+                Level_of_Expertise = s.Level_of_Expertise,
+                YearsOfExperience = s.YearsOfExperience,
                 EducationLevel = s.EducationLevel
-            }).ToList());
+            }).ToList();
+
+            var data = JsonConvert.SerializeObject(applicants, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
+             
+            return Content(data, "application/json"); 
+            //var result = applicantsRepo.All().ToList();
+            //return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Applicant/Details/5
